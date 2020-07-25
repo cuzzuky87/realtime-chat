@@ -1,0 +1,44 @@
+scalar Time
+
+type Message {
+  id: String!
+  user: User!
+  createdAt: Time!
+  text: String!
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  messages: [messages!]!
+  users: [User!]!
+}
+
+input NewUser {
+  username: String!
+  password: String!
+}
+
+input Login {
+  username: String!
+  password: String!
+}
+
+input RefreshTokenInput {
+  token: String!
+}
+
+type Mutation {
+  login(input: Login!): String!
+  createUser(input: NewUser!): String!
+  postMessage(user: User!, text: String!): Message
+  RefreshTokenInput(input: RefreshTokenInput!): String!
+}
+
+type Subscription {
+  messagePosted(user: User!): Message!
+  userJoined(user: User!): String!
+}
